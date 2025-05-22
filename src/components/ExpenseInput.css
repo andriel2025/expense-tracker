@@ -1,0 +1,161 @@
+.expense-tracker-container {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #e6e0f8;
+    /* lavender purple background */
+    border-radius: 8px;
+    font-family: Arial, sans-serif;
+    box-shadow: 0 0 10px rgba(128, 0, 128, 0.2);
+    text-align: center;
+}
+
+.expense-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.form-control {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.form-control label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #5d3a99;
+    /* darker purple */
+}
+
+.form-control input,
+.form-control select {
+    padding: 10px;
+    font-size: 1.1rem;
+    border: 2px solid #a78bfa;
+    border-radius: 5px;
+}
+
+button {
+    padding: 12px;
+    font-size: 1.2rem;
+    background-color: #7c3aed;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #5b21b6;
+}
+
+.entry-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.entry {
+    background: white;
+    border-radius: 6px;
+    padding: 12px 15px;
+    margin-bottom: 12px;
+    box-shadow: 0 1px 3px rgba(128, 0, 128, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.entry.expense {
+    border-left: 5px solid #d946ef;
+    /* pinkish purple */
+}
+
+.entry.income {
+    border-left: 5px solid #10b981;
+    /* green */
+}
+
+.entry button {
+    background: transparent;
+    color: #b91c1c;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+}
+
+.entry button:hover {
+    text-decoration: underline;
+}
+
+.entry-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.entry {
+    background: white;
+    border-radius: 6px;
+    padding: 12px 15px;
+    margin-bottom: 12px;
+    box-shadow: 0 1px 3px rgba(128, 0, 128, 0.1);
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.entry.expense {
+    border-left: 5px solid #d946ef;
+    /* pinkish purple */
+}
+
+.entry.income {
+    border-left: 5px solid #10b981;
+    /* green */
+}
+
+.entry-details {
+    flex: 1 1 auto;
+    min-width: 220px;
+}
+
+.entry-type-category {
+    font-weight: bold;
+    color: #5d3a99;
+    /* dark purple */
+}
+
+.entry-subtitle {
+    font-style: italic;
+    color: #6b7280;
+    /* grayish */
+}
+
+.entry-amount-date {
+    margin-top: 4px;
+    font-size: 0.9rem;
+    color: #374151;
+    /* dark gray */
+}
+
+.entry button {
+    background: transparent;
+    color: #b91c1c;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.entry button:hover {
+    text-decoration: underline;
+}
