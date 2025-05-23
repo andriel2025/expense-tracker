@@ -132,3 +132,17 @@ select::placeholder {
   color: #b33a3a;
   /* dark red */
 }
+
+button {
+  background-color: #6e57c7;
+  /* purple */
+  color: white;
+  border: none;
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #8567d8;
+}

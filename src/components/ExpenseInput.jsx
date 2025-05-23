@@ -7,170 +7,130 @@ function ExpenseInput() {
     const [subtitle, setSubtitle] = useState("");
     const [amount, setAmount] = useState("");
     const [date, setDate] = useState("");
+    const [editId, setEditId] = useState(null);
 
     const handleAddExpense = () => {
         if (!category || !amount || !date) {
-            alert("Please fill in category, amount, and date.");
+            alert("Please fill in Category, Amount, and Date.");
             return;
         }
-
-        const newExpense = {
-            id: Date.now(),
-            type,
-            category,
-            subtitle,
-            amount: parseFloat(amount),
-            date,
-        };
-
-        setExpenses([...expenses, newExpense]);
-
+        if (editId !== null) {
+            setExpenses((prev) =>
+                prev.map((exp) =>
+                    exp.id === editId
+                        ? { id: exp.id, type, category, subtitle, amount: parseFloat(amount), date }
+                        : exp
+                )
+            );
+            setEditId(null);
+        } else {
+            setExpenses([
+                ...expenses,
+                { id: Date.now(), type, category, subtitle, amount: parseFloat(amount), date },
+            ]);
+        }
+        setType("Expense");
         setCategory("");
         setSubtitle("");
         setAmount("");
         setDate("");
     };
 
+    const handleEdit = (id) => {
+        const exp = expenses.find((e) => e.id === id);
+        if (!exp) return;
+        setType(exp.type);
+        setCategory(exp.category);
+        setSubtitle(exp.subtitle);
+        setAmount(exp.amount.toString());
+        setDate(exp.date);
+        setEditId(id);
+    };
+
+    const handleDelete = (id) => {
+        setExpenses(expenses.filter((exp) => exp.id !== id));
+        if (editId === id) {
+            setEditId(null);
+            setType("Expense");
+            setCategory("");
+            setSubtitle("");
+            setAmount("");
+            setDate("");
+        }
+    };
+
     return (
-        <div
-            style={{
-                maxWidth: "700px",
-                margin: "2rem auto",
-                padding: "1.5rem",
-                backgroundColor: "#f9f9f9",
-                borderRadius: "10px",
-                boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-                fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-                color: "#333",
-            }}
-        >
-            <div
-                style={{
-                    display: "grid",
-                    gridTemplateColumns: "1fr 1fr",
-                    gap: "1.2rem 2rem",
-                    alignItems: "center",
-                    marginBottom: "1rem",
-                }}
-            >
-                <label style={{ fontWeight: "600" }}>Type:</label>
-                <select
-                    value={type}
-                    onChange={(e) => setType(e.target.value)}
-                    style={{
-                        padding: "0.5rem",
-                        borderRadius: "5px",
-                        border: "1px solid #cddcdc",
-                        backgroundColor: "#d9f0f0", // pastel teal
-                    }}
-                >
+        <div className="app-container">
+            <h1 style={{ textAlign: "center" }}>Expense Tracker</h1>
+
+
+            <div className="expense-input-grid">
+                <label>Type:</label>
+                <select value={type} onChange={(e) => setType(e.target.value)}>
                     <option value="Income">Income</option>
                     <option value="Expense">Expense</option>
                 </select>
 
-                <label style={{ fontWeight: "600" }}>Expense Category:</label>
+                <label>Category:</label>
                 <input
                     type="text"
                     placeholder="e.g., Food"
                     value={category}
                     onChange={(e) => setCategory(e.target.value)}
-                    style={{
-                        padding: "0.5rem",
-                        borderRadius: "5px",
-                        border: "1px solid #cddcdc",
-                        backgroundColor: "#fef6e4", // pastel yellow
-                    }}
                 />
 
-                <label style={{ fontWeight: "600" }}>Subtitle (optional):</label>
+                <label>Subtitle (optional):</label>
                 <input
                     type="text"
                     placeholder="Add subtitle"
                     value={subtitle}
                     onChange={(e) => setSubtitle(e.target.value)}
-                    style={{
-                        padding: "0.5rem",
-                        borderRadius: "5px",
-                        border: "1px solid #cddcdc",
-                        backgroundColor: "#fbe4f9", // pastel pink
-                    }}
                 />
 
-                <label style={{ fontWeight: "600" }}>Amount:</label>
+                <label>Amount:</label>
                 <input
                     type="number"
                     placeholder="Enter amount"
                     value={amount}
                     onChange={(e) => setAmount(e.target.value)}
-                    style={{
-                        padding: "0.5rem",
-                        borderRadius: "5px",
-                        border: "1px solid #cddcdc",
-                        backgroundColor: "#e4f9f5", // pastel mint
-                    }}
                 />
 
-                <label style={{ fontWeight: "600" }}>Date:</label>
-                <input
-                    type="date"
-                    value={date}
-                    onChange={(e) => setDate(e.target.value)}
-                    style={{
-                        padding: "0.5rem",
-                        borderRadius: "5px",
-                        border: "1px solid #cddcdc",
-                        backgroundColor: "#f0f4ff", // pastel blue
-                    }}
-                />
+                <label>Date:</label>
+                <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
             </div>
 
-            <button
-                onClick={handleAddExpense}
-                style={{
-                    padding: "0.7rem 1.5rem",
-                    backgroundColor: "#a0d8ef", // pastel blue button
-                    border: "none",
-                    borderRadius: "8px",
-                    cursor: "pointer",
-                    fontWeight: "600",
-                    color: "#fff",
-                    boxShadow: "0 2px 6px rgba(0,0,0,0.15)",
-                    transition: "background-color 0.3s ease",
-                }}
-                onMouseEnter={(e) => (e.target.style.backgroundColor = "#89c7e9")}
-                onMouseLeave={(e) => (e.target.style.backgroundColor = "#a0d8ef")}
-            >
-                Add Expense
+            <button onClick={handleAddExpense}>
+                {editId !== null ? "Update Expense" : "Add Expense"}
             </button>
 
-            <hr style={{ margin: "2rem 0" }} />
-
             {expenses.length === 0 ? (
-                <p style={{ fontStyle: "italic", color: "#999" }}>No expenses added yet.</p>
+                <p>No expenses added yet.</p>
             ) : (
-                <div>
-                    <h3 style={{ marginBottom: "1rem", color: "#666" }}>Expense List</h3>
-                    <ul style={{ listStyle: "none", padding: 0 }}>
-                        {expenses.map((exp) => (
-                            <li
-                                key={exp.id}
-                                style={{
-                                    backgroundColor: "#f3f3f3",
-                                    marginBottom: "0.8rem",
-                                    padding: "0.8rem 1rem",
-                                    borderRadius: "6px",
-                                    boxShadow: "inset 0 0 5px rgba(0,0,0,0.05)",
-                                }}
-                            >
-                                <strong style={{ color: exp.type === "Income" ? "#2e7d32" : "#c62828" }}>
+                <ul>
+                    {expenses.map((exp) => (
+                        <li key={exp.id} className="expense-item">
+                            <div className="expense-info">
+                                <span
+                                    className={
+                                        exp.type === "Income"
+                                            ? "expense-type-income"
+                                            : "expense-type-expense"
+                                    }
+                                >
                                     {exp.type}
-                                </strong>{" "}
-                                - {exp.category} {exp.subtitle && `(${exp.subtitle})`} - ₹{exp.amount} on{" "}
-                                {exp.date}
-                            </li>
-                        ))}
-                    </ul>
-                </div>
+                                </span>{" "}
+                                — {exp.category} {exp.subtitle && `(${exp.subtitle})`} — ₹
+                                {exp.amount} on {exp.date}
+                            </div>
+                            <div className="expense-actions">
+                                <button className="btn edit-btn" onClick={() => handleEdit(exp.id)}>Edit</button>
+                                <button className="btn delete-btn" onClick={() => handleDelete(exp.id)}>Delete</button>
+                            </div>
+                        </li>
+
+                    ))}
+                </ul>
+
             )}
         </div>
     );

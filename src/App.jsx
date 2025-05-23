@@ -3,11 +3,14 @@ import ExpenseInput from "./components/ExpenseInput";
 
 function App() {
   return (
-    <div className="app-container">
-      <h1 className="main-heading">Expense Tracker</h1>
+    <div>
+      {/* No heading here to avoid duplicates */}
       <ExpenseInput />
     </div>
   );
 }
 
 export default App;
+
+
+
