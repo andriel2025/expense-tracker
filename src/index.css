@@ -1,68 +1,134 @@
-:root {
+/* Container for whole app */
+.app-container {
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #e6e0f8;
+  /* very light lavender */
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(120, 81, 169, 0.3);
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  color: #3a2c5a;
+  /* dark purple for text */
 }
 
-a {
+/* Main heading */
+.main-heading {
+  text-align: center;
+  font-weight: 700;
+  font-size: 2.8rem;
+  color: #4e3a8c;
+  margin-bottom: 2rem;
+}
+
+/* Grid container for inputs */
+.expense-input-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem 2rem;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+/* Label style */
+.expense-input-grid label {
+  font-weight: 600;
+  color: #3a2c5a;
+  /* dark purple */
+}
+
+/* Input and select style */
+.expense-input-grid input,
+.expense-input-grid select {
+  padding: 0.55rem 0.8rem;
+  border-radius: 10px;
+  border: 1.8px solid #a18be3;
+  /* medium lavender border */
+  font-size: 1rem;
+  color: #2a2140;
+  /* very dark purple for input text */
+  background-color: #f4f2fb;
+  /* soft pastel lavender background */
   font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
 }
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+/* Placeholder text color */
+input::placeholder,
+select::placeholder {
+  color: #958dc6;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+/* Input focus */
+.expense-input-grid input:focus,
+.expense-input-grid select:focus {
+  border-color: #6e57c7;
+  /* darker purple */
+  box-shadow: 0 0 6px #9a8be9aa;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
+/* Button styling */
+.add-expense-btn {
+  grid-column: span 2;
+  padding: 0.75rem 1.5rem;
+  background-color: #6e57c7;
+  color: white;
+  font-weight: 700;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 12px;
   cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  transition: background-color 0.3s ease;
+  width: 100%;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+.add-expense-btn:hover {
+  background-color: #8567d8;
+}
+
+/* Expense list */
+.expense-list {
+  margin-top: 2rem;
+  color: #3a2c5a;
+}
+
+/* No expenses message */
+.no-expenses {
+  font-style: italic;
+  color: #6b5aa7;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+/* Expense items styling */
+.expense-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.expense-list li {
+  background-color: #d8d3f2;
+  /* lighter lavender */
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  box-shadow: inset 0 0 5px #a594df;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #3a2c5a;
+  font-weight: 600;
+}
+
+/* Income and expense colors */
+.expense-type-income {
+  color: #4caf50;
+  /* green */
+}
+
+.expense-type-expense {
+  color: #b33a3a;
+  /* dark red */
 }
